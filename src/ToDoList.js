@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import ListItemInput from './ListItemInput';
 import ActiveListItems from './ActiveListItems';
 import FinishedListItems from './FinishedListItems';
+import TrashListItems from './TrashListItems';
 
 import './react-styles.css';
 
@@ -21,6 +22,21 @@ class ToDoList extends Component {
             });
         }
     };
+
+	removeItemFromList = () => {
+		const currentListItem = this.state.currentListItem;
+		
+		if (currentListItem.length) {
+			this.setState({
+				...this.state,
+				currentListItem: '',
+				listItems: [
+					...this.state.listItems,
+					currentListItem
+				]
+			});
+		}
+	};
 
     setCurrentToDoListItem = (currentText) => {
         this.setState({
@@ -62,12 +78,25 @@ class ToDoList extends Component {
         })
     };
 
+	markItemAsTrash = (itemToTrash) => {
+		const currentFinishedListItems = this.state.finishedListItems;
+        const indexOfItemToTrash = currentFinishedListItems.indexOf(itemToTrash.toString());
+
+        currentFinishedListItems.splice(indexOfItemToTrash, 1);
+
+        this.setState({
+            ...this.state,
+            finishedListItems: currentFinishedListItems
+        });
+	};
+
     constructor(props) {
         super(props);
         this.setCurrentToDoListItem = this.setCurrentToDoListItem.bind(this);
         this.addItemToList = this.addItemToList.bind(this);
         this.markItemAsFinished = this.markItemAsFinished.bind(this);
         this.markItemAsActive = this.markItemAsActive.bind(this);
+		this.markItemAsTrash = this.markItemAsTrash.bind(this);
 
         this.state = {
             currentListItem: '',
@@ -98,6 +127,8 @@ class ToDoList extends Component {
                     className="finished-items"
                     finishedListItems={this.state.finishedListItems}
                     onClick={this.markItemAsActive}
+					trashItem={this.markItemAsTrash}
+					
                 />
             </div>
         );

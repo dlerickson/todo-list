@@ -9,10 +9,12 @@ library.add(faTrash);
 
 const getContainerClass = (isActive) => isActive ? "active-list-item" : "finished-list-item";
 const getTextClass = (isActive) => isActive ? "active-list-item-text" : "finished-list-item-text";
+const getButtonClass = (isActive) => isActive ? "active-button" : "finished-button";	
+const getIconClass = (isActive) => isActive ? "trash-button" : "trash-delete-button";
 
 class ListItem extends Component {
     render() {
-        const {item, isActive, onClick} = this.props;
+        const {item, isActive, onClick, trashItem} = this.props;
 
         return (
             <div className={getContainerClass(isActive)}>
@@ -41,9 +43,10 @@ class ListItem extends Component {
                                     icon="check-square"
                                 />
                             </button>
+						
                             <button
                                 className="finished-button"
-                                onClick={() => console.log('Not implemented yet!')}
+                                onClick={() => trashItem(item)}
                             >
                                 <FontAwesomeIcon
                                     color="#eeeeee"
