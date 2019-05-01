@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import ListItemInput from './ListItemInput';
 import ActiveListItems from './ActiveListItems';
 import FinishedListItems from './FinishedListItems';
-import TrashListItems from './TrashListItems';
+//import TrashListItems from './TrashListItems';
 
 import './react-styles.css';
 
